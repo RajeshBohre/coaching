@@ -86,6 +86,24 @@ app.post("/api/feeSubmission", function (req, res) {
         })
     }
 } )
+app.patch("/api/updateBacklog",function(req,res){
+    feesModel.findByIdAndUpdate(req.body.id, { 
+        _id: req.body.id,
+        studentName: req.body.studentName,
+        amount: req.body.amount,
+        paidTo: req.body.paidTo,
+        paidBy: req.body.paidBy,
+        paidOn : req.body.paidOn,
+        transactionMode: req.body.transactionMode,
+        comment:req.body.comment
+},
+    function(err,data) {
+    if (err) {
+    res.send(err);
+    }else{
+    res.send({data:"Record has been Updated..!!"});
+    }});
+})
 app.post("/api/getStudentFeeByPaidTo", function(req, res){
     const condition = req.body;
     studentModel.find(condition, function(err,data){
